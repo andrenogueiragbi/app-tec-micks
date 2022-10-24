@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
     Text,
     View,
@@ -6,17 +6,60 @@ import {
     TextInput,
     TouchableOpacity,
     SafeAreaView,
-    ScrollView
+    ScrollView,
+    Vibration
+
 
 } from "react-native"
 import * as Animatable from 'react-native-animatable'
 import { useNavigation } from '@react-navigation/native'
+import API from '../../api'
 
 
 
 export default props => {
-
     const navigation = useNavigation();
+    const [user, setUser] = useState(null)
+    const [password, setPassword] = useState(null)
+    const [erroUser, setErroUser] = useState(null)
+    const [erroPassword, setErroPassword] = useState(null)
+
+
+    const VerifyLogin = async () => {
+
+        if (!user) {
+            setErroUser('*Campo requerido*')
+            setErroPassword(null)
+            Vibration.vibrate()
+        } else if (!password) {
+            setErroPassword('*Campo requerido*')
+            setErroUser(null)
+            Vibration.vibrate()
+        } else if (!user.includes('@') || !user.split('@')[0] || !user.split('@')[1]) {
+            setErroUser('*Email invalido')
+            setErroPassword(null)
+            Vibration.vibrate()
+        } else if (password.length < 8) {
+            setErroPassword('*Senha invalida')
+            setErroUser(null)
+            Vibration.vibrate()
+        } else {
+            const result = await API.login()
+            setErroPassword(null)
+            setErroUser(null)
+
+            console.log(user, password)
+            console.log(result)
+            
+        }
+
+
+        //const result = await API.login()
+        
+
+
+
+    }
 
     return (
         <SafeAreaView style={Styles.container}>
@@ -49,7 +92,11 @@ export default props => {
                     <TextInput
                         placeholder="Digite um email..."
                         style={Styles.input}
+                        values={user}
+                        onChangeText={setUser}
                     />
+
+                    {erroUser ? <Animatable.Text animation='bounce' style={Styles.erroMessage}>{erroUser}</Animatable.Text> : false}
 
                     <Text style={Styles.title}>Senha</Text>
 
@@ -57,12 +104,19 @@ export default props => {
                         placeholder="Digite um senha..."
                         style={Styles.input}
                         secureTextEntry={true}
+                        values={password}
+                        onChangeText={setPassword}
 
                     />
+                    {erroPassword ? <Animatable.Text  animation='bounce' style={Styles.erroMessage} >{erroPassword}</Animatable.Text> : false}
 
                     <Animatable.View animation='fadeInUp' delay={1000}>
-                        <TouchableOpacity style={Styles.button}>
+                        <TouchableOpacity
+                            style={Styles.button}
+                            onPress={VerifyLogin}
+                        >
                             <Text style={Styles.buttonText}>Acessar</Text>
+
                         </TouchableOpacity>
                     </Animatable.View>
 
@@ -145,6 +199,9 @@ const Styles = StyleSheet.create({
     registerText: {
         color: '#a1a1a1'
 
+    },
+    erroMessage: {
+        color: 'tomato',
     }
 
 })
