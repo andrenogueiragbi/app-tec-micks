@@ -5,6 +5,7 @@ import Welcome from "../pages/Welcome"
 import Client from "../pages/Client"
 import Register from "../pages/Register"
 import Test from "../pages/Test"
+import Home from "../pages/home";
 
 const Stack = createNativeStackNavigator()
 
@@ -43,6 +44,12 @@ export default props => {
                 name="Test"
                 component={Test}
                 options={{ headerShown: false }} //tira divisão no topo
+            />
+
+            <Stack.Screen
+                name="Home"
+                component={Home}
+            
             />
 
 

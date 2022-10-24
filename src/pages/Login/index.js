@@ -7,7 +7,8 @@ import {
     TouchableOpacity,
     SafeAreaView,
     ScrollView,
-    Vibration
+    Vibration,
+    BackHandler
 
 
 } from "react-native"
@@ -19,8 +20,8 @@ import API from '../../api'
 
 export default props => {
     const navigation = useNavigation();
-    const [user, setUser] = useState(null)
-    const [password, setPassword] = useState(null)
+    const [user, setUser] = useState('andrepereiragbi@gmail.com.br')
+    const [password, setPassword] = useState('123456789')
     const [erroUser, setErroUser] = useState(null)
     const [erroPassword, setErroPassword] = useState(null)
 
@@ -44,12 +45,22 @@ export default props => {
             setErroUser(null)
             Vibration.vibrate()
         } else {
-            const result = await API.login()
+            const result = await API.login(user,password)
             setErroPassword(null)
             setErroUser(null)
 
             console.log(user, password)
-            console.log(result)
+            console.log(">>>",result.ok)
+            if(result.ok){
+                setUser('')
+                setPassword('')
+                BackHandler.exitApp()
+                navigation.navigate('Home')
+
+            }else{
+                alert('Senha ou usuario inválido')
+            }
+
             
         }
 
@@ -92,7 +103,7 @@ export default props => {
                     <TextInput
                         placeholder="Digite um email..."
                         style={Styles.input}
-                        values={user}
+                        value={user}
                         onChangeText={setUser}
                     />
 
@@ -104,7 +115,7 @@ export default props => {
                         placeholder="Digite um senha..."
                         style={Styles.input}
                         secureTextEntry={true}
-                        values={password}
+                        value={password}
                         onChangeText={setPassword}
 
                     />
