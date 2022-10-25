@@ -8,13 +8,15 @@ import {
     SafeAreaView,
     ScrollView,
     Vibration,
-    BackHandler
+    BackHandler,
+    Alert
 
 
 } from "react-native"
 import * as Animatable from 'react-native-animatable'
 import { useNavigation } from '@react-navigation/native'
 import API from '../../api'
+import StorePersistent from "../../api/StorePersistent";
 
 
 
@@ -27,6 +29,8 @@ export default props => {
 
 
     const VerifyLogin = async () => {
+
+        await StorePersistent.removeData('@toMakeWelcome')
 
         if (!user) {
             setErroUser('*Campo requerido*')
@@ -45,30 +49,30 @@ export default props => {
             setErroUser(null)
             Vibration.vibrate()
         } else {
-            const result = await API.login(user,password)
+            const result = await API.login(user, password)
             setErroPassword(null)
             setErroUser(null)
 
             console.log(user, password)
-            console.log(">>>",result.ok)
-            if(result.ok){
+            console.log(">>>", result.ok)
+            if (result.ok) {
                 setUser('')
                 setPassword('')
-                BackHandler.exitApp()
                 navigation.navigate('Home')
 
-            }else{
-                alert('Senha ou usuario inválido')
+            } else {
+                Vibration.vibrate()
+                Alert.alert("Falha na autenticação",
+                    "Houve um erro no login, verifique seus dados",
+                    [
+                        {
+                            text: "Fechar"
+                        },
+                    ],
+
+                )
             }
-
-            
         }
-
-
-        //const result = await API.login()
-        
-
-
 
     }
 
@@ -119,7 +123,7 @@ export default props => {
                         onChangeText={setPassword}
 
                     />
-                    {erroPassword ? <Animatable.Text  animation='bounce' style={Styles.erroMessage} >{erroPassword}</Animatable.Text> : false}
+                    {erroPassword ? <Animatable.Text animation='bounce' style={Styles.erroMessage} >{erroPassword}</Animatable.Text> : false}
 
                     <Animatable.View animation='fadeInUp' delay={1000}>
                         <TouchableOpacity

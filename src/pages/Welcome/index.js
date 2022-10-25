@@ -1,10 +1,12 @@
-import React, { cloneElement } from "react";
+import React from "react";
+import StorePersistent from "../../api/StorePersistent";
 import {
     Text,
     View,
     StyleSheet,
     Image,
-    TouchableOpacity
+    TouchableOpacity,
+    
 
 } from 'react-native'
 
@@ -14,6 +16,12 @@ import { useNavigation } from '@react-navigation/native'
 export default props => {
 
     const navigation = useNavigation();
+
+    const makeWelcome = async() =>{
+        StorePersistent.storeData('@toMakeWelcome','true')
+        navigation.navigate('Login')
+
+    }
 
 
     return (
@@ -34,7 +42,7 @@ export default props => {
                 </View>
                 <TouchableOpacity
                     style={Styles.button}
-                    onPress={() => navigation.navigate('Login')}
+                    onPress={makeWelcome}
                 >
                     <Text style={Styles.buttonText} >Acessar</Text>
                 </TouchableOpacity>

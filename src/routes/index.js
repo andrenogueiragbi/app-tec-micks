@@ -6,15 +6,24 @@ import Client from "../pages/Client"
 import Register from "../pages/Register"
 import Test from "../pages/Test"
 import Home from "../pages/home";
+import StorePersistent from "../api/StorePersistent";
 
 const Stack = createNativeStackNavigator()
 
 
 export default props => {
+    var PageStart = ''
     let makeWelcome = false;
 
+
+
     return (
-        <Stack.Navigator initialRouteName={makeWelcome ? "Login" : "Welcome"}>
+        <Stack.Navigator initialRouteName={async () => {
+            let toMakeWelcome = await StorePersistent.getData("@toMakeWelcome")
+            return 'Welcome'
+
+
+        }}>
             <Stack.Screen
                 name="Login" //nome da rota
                 component={Login} //passando component
@@ -49,7 +58,7 @@ export default props => {
             <Stack.Screen
                 name="Home"
                 component={Home}
-            
+
             />
 
 

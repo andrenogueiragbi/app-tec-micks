@@ -1,12 +1,11 @@
 import React from "react";
 import {
-    Text,
-    BackHandler
+    Text
 } from "react-native";
 
 
 export default props => {
-    BackHandler.addEventListener(BackHandler.exitApp)
+
 
     return (
         <Text>Home</Text>
