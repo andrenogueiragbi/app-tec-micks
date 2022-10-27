@@ -34,23 +34,22 @@ export default props => {
             <Actions />
             <ScrollView style={Styles.containerForm} >
                 <View style={Styles.containerData}>
-                    <DataClient title='Login' data='andrepn' />
-                    <DataClient title='Senha' data='123456' />
-                    <DataClient title='Endereço IP4' data='177.177.177.177' />
-                    <DataClient title='Endereço IP6' data='177.177.177.177' />
-                    <DataClient title='MAC Address' data='68-58-11-0F-BE-4B' />
-                    <DataClient title='Plano' data='PLANO_FIBRA_ULTRA_340M' />
-                    <DataClient title='Inicio Conexão' data='2022-10-13 14:55:35' />
-                    <DataClient title='Status Conexão' data='Conectado' />
-                    <DataClient title='Tempo Conexão' data='13d 1h34m59s' />
-                    <DataClient title='Consumo Download' data='144.57GB' />
-                    <DataClient title='Consumo Upload' data='5.57GB' />
-
-                    <DataClient title='Concentador' data='177.38.178.78' />
-                    <DataClient title='Area' data='AREA 4 G21' />
-                    <DataClient title='ONU Sinal' data='-25.54' />
-                    <DataClient title='ONU Temperatura' data='Cº 56.35' />
-                    <DataClient title='ONU Voltagem' data='3,36V' />
+                    <DataClient icon='login' title='Login' data='andrepn' />
+                    <DataClient icon='key' title='Senha' data='123456' />
+                    <DataClient icon='enviromento'  title='Endereço IP4' data='177.177.177.177' />
+                    <DataClient icon='pushpino'  title='Endereço IP6' data='177.177.177.177' />
+                    <DataClient icon='tago' title='MAC Address' data='68-58-11-0F-BE-4B' />
+                    <DataClient icon='shoppingcart' title='Plano' data='PLANO_FIBRA_ULTRA_340M' />
+                    <DataClient icon='disconnect' title='Inicio Conexão' data='2022-10-13 14:55:35' />
+                    <DataClient icon='pausecircleo' title='Status Conexão' data='Conectado' />
+                    <DataClient icon='clockcircleo' title='Tempo Conexão' data='13d 1h34m59s' />
+                    <DataClient icon='clouddownloado' title='Consumo Download' data='144.57GB' />
+                    <DataClient icon='clouduploado' title='Consumo Upload' data='5.57GB' />
+                    <DataClient icon='database' title='Concentador' data='177.38.178.78' />
+                    <DataClient icon='flag' title='Area' data='AREA 4 G21' />
+                    <DataClient icon='dashboard' title='ONU Sinal' data='-25.54' />
+                    <DataClient icon='exception1' title='ONU Temperatura' data='Cº 56.35' />
+                    <DataClient icon='warning' title='ONU Voltagem' data='3,36V' />
                 </View>
 
             </ScrollView>
@@ -65,10 +64,10 @@ const Styles = StyleSheet.create({
         backgroundColor: '#0791AB',
 
     },
-    containerData:{
-        marginBottom:30,
-        marginTop:20
-        
+    containerData: {
+        marginBottom: 30,
+        marginTop: 20
+
 
     },
     containerForm: {

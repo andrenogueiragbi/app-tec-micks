@@ -24,12 +24,7 @@ export default props => {
 
 
         }}>
-            <Stack.Screen
-                name="Home"
-                component={Home}
-                options={{ headerShown: false }}
 
-            />
             <Stack.Screen
                 name="Login" //nome da rota
                 component={Login} //passando component
@@ -59,6 +54,13 @@ export default props => {
                 name="Test"
                 component={Test}
                 options={{ headerShown: false }} //tira divisão no topo
+            />
+
+            <Stack.Screen
+                name="Home"
+                component={Home}
+                options={{ headerShown: false }}
+
             />
 
 
