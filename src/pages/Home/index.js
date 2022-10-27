@@ -15,6 +15,11 @@ import * as Animatable from 'react-native-animatable'
 import { useNavigation } from '@react-navigation/native'
 import API from '../../api'
 import StorePersistent from "../../api/StorePersistent";
+import Header from '../../components/Header';
+import Client from '../../components/Client';
+import Moviments from '../../components/Moviments';
+import Actions from '../../components/Actions';
+import Title from '../../components/Title';
 
 
 
@@ -76,25 +81,13 @@ export default props => {
 
     return (
         <SafeAreaView style={Styles.container}>
+            <Header name="André Nogueira" />
+            <Client />
+            <Actions/>
 
 
 
-            <View style={Styles.containerLogo}>
-                <Animatable.Image
-                    animation='flipInY'
-                    source={require('../../assets/logoMicks.png')}
-                    style={{ width: '100%' }}
-                    resizeMode='contain'
-                />
-            </View>
-
-            <View>
-                <Animatable.View animation='fadeInUp' delay={400} style={Styles.containerHeader}>
-                    <Text style={Styles.message}>Login</Text>
-                </Animatable.View>
-
-            </View>
-
+{/* 
             <ScrollView style={Styles.containerForm} >
 
 
@@ -142,7 +135,7 @@ export default props => {
                         </TouchableOpacity>
                     </Animatable.View>
                 </Animatable.View>
-            </ScrollView>
+            </ScrollView> */}
         </SafeAreaView >
     )
 }

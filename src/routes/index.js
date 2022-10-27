@@ -5,7 +5,7 @@ import Welcome from "../pages/Welcome"
 import Client from "../pages/Client"
 import Register from "../pages/Register"
 import Test from "../pages/Test"
-import Home from "../pages/home";
+import Home from "../pages/Home";
 import StorePersistent from "../api/StorePersistent";
 
 const Stack = createNativeStackNavigator()
@@ -24,6 +24,12 @@ export default props => {
 
 
         }}>
+            <Stack.Screen
+                name="Home"
+                component={Home}
+                options={{ headerShown: false }}
+
+            />
             <Stack.Screen
                 name="Login" //nome da rota
                 component={Login} //passando component
@@ -55,11 +61,7 @@ export default props => {
                 options={{ headerShown: false }} //tira divisão no topo
             />
 
-            <Stack.Screen
-                name="Home"
-                component={Home}
 
-            />
 
 
 
