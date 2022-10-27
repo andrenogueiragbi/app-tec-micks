@@ -16,126 +16,45 @@ import { useNavigation } from '@react-navigation/native'
 import API from '../../api'
 import StorePersistent from "../../api/StorePersistent";
 import Header from '../../components/Header';
-import Client from '../../components/Client';
+import Search from '../../components/Client/Search';
 import Moviments from '../../components/Moviments';
 import Actions from '../../components/Actions';
 import Title from '../../components/Title';
+import DataClient from '../../components/Client/DataClient';
+
 
 
 
 export default props => {
-    const navigation = useNavigation();
-    const [user, setUser] = useState('andrepereiragbi@gmail.com.br')
-    const [password, setPassword] = useState('123456789')
-    const [erroUser, setErroUser] = useState(null)
-    const [erroPassword, setErroPassword] = useState(null)
-
-
-    const VerifyLogin = async () => {
-
-        await StorePersistent.removeData('@toMakeWelcome')
-
-        if (!user) {
-            setErroUser('*Campo requerido*')
-            setErroPassword(null)
-            Vibration.vibrate()
-        } else if (!password) {
-            setErroPassword('*Campo requerido*')
-            setErroUser(null)
-            Vibration.vibrate()
-        } else if (!user.includes('@') || !user.split('@')[0] || !user.split('@')[1]) {
-            setErroUser('*Email invalido')
-            setErroPassword(null)
-            Vibration.vibrate()
-        } else if (password.length < 8) {
-            setErroPassword('*Senha invalida')
-            setErroUser(null)
-            Vibration.vibrate()
-        } else {
-            const result = await API.login(user, password)
-            setErroPassword(null)
-            setErroUser(null)
-
-            console.log(user, password)
-            console.log(">>>", result.ok)
-            if (result.ok) {
-                setUser('')
-                setPassword('')
-                navigation.navigate('Home')
-
-            } else {
-                Vibration.vibrate()
-                Alert.alert("Falha na autenticação",
-                    "Houve um erro no login, verifique seus dados",
-                    [
-                        {
-                            text: "Fechar"
-                        },
-                    ],
-
-                )
-            }
-        }
-
-    }
 
     return (
         <SafeAreaView style={Styles.container}>
             <Header name="André Nogueira" />
-            <Client />
-            <Actions/>
-
-
-
-{/* 
+            <Search />
+            <Actions />
             <ScrollView style={Styles.containerForm} >
+                <View style={Styles.containerData}>
+                    <DataClient title='Login' data='andrepn' />
+                    <DataClient title='Senha' data='123456' />
+                    <DataClient title='Endereço IP4' data='177.177.177.177' />
+                    <DataClient title='Endereço IP6' data='177.177.177.177' />
+                    <DataClient title='MAC Address' data='68-58-11-0F-BE-4B' />
+                    <DataClient title='Plano' data='PLANO_FIBRA_ULTRA_340M' />
+                    <DataClient title='Inicio Conexão' data='2022-10-13 14:55:35' />
+                    <DataClient title='Status Conexão' data='Conectado' />
+                    <DataClient title='Tempo Conexão' data='13d 1h34m59s' />
+                    <DataClient title='Consumo Download' data='144.57GB' />
+                    <DataClient title='Consumo Upload' data='5.57GB' />
 
+                    <DataClient title='Concentador' data='177.38.178.78' />
+                    <DataClient title='Area' data='AREA 4 G21' />
+                    <DataClient title='ONU Sinal' data='-25.54' />
+                    <DataClient title='ONU Temperatura' data='Cº 56.35' />
+                    <DataClient title='ONU Voltagem' data='3,36V' />
+                </View>
 
-                <Animatable.View animation='fadeInUp' style={Styles.containerForm}>
+            </ScrollView>
 
-                    <Text style={Styles.title}>Email</Text>
-
-                    <TextInput
-                        placeholder="Digite um email..."
-                        style={Styles.input}
-                        value={user}
-                        onChangeText={setUser}
-                    />
-
-                    {erroUser ? <Animatable.Text animation='bounce' style={Styles.erroMessage}>{erroUser}</Animatable.Text> : false}
-
-                    <Text style={Styles.title}>Senha</Text>
-
-                    <TextInput
-                        placeholder="Digite um senha..."
-                        style={Styles.input}
-                        secureTextEntry={true}
-                        value={password}
-                        onChangeText={setPassword}
-
-                    />
-                    {erroPassword ? <Animatable.Text animation='bounce' style={Styles.erroMessage} >{erroPassword}</Animatable.Text> : false}
-
-                    <Animatable.View animation='fadeInUp' delay={1000}>
-                        <TouchableOpacity
-                            style={Styles.button}
-                            onPress={VerifyLogin}
-                        >
-                            <Text style={Styles.buttonText}>Acessar</Text>
-
-                        </TouchableOpacity>
-                    </Animatable.View>
-
-                    <Animatable.View animation='fadeInUp' delay={1000}>
-                        <TouchableOpacity
-                            style={Styles.buttonRegister}
-                            onPress={() => navigation.navigate('Register')}
-                        >
-                            <Text style={Styles.registerText}>Não possui uma conta?</Text>
-                        </TouchableOpacity>
-                    </Animatable.View>
-                </Animatable.View>
-            </ScrollView> */}
         </SafeAreaView >
     )
 }
@@ -143,24 +62,13 @@ export default props => {
 const Styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#0791AB'
+        backgroundColor: '#0791AB',
 
     },
-    containerLogo: {
-        marginTop: '10%',
-        paddingStart: '5%'
-
-    },
-
-    containerHeader: {
-        marginTop: '5%',
-        marginBottom: '8%',
-        paddingStart: '5%'
-    },
-    message: {
-        fontSize: 28,
-        fontWeight: 'bold',
-        color: '#fff'
+    containerData:{
+        marginBottom:30,
+        marginTop:20
+        
 
     },
     containerForm: {
@@ -169,45 +77,8 @@ const Styles = StyleSheet.create({
         borderTopLeftRadius: 25,
         borderTopRightRadius: 25,
         paddingStart: '5%',
-        paddingEnd: '5%'
-    },
-    title: {
-        fontSize: 20,
-        marginTop: 28
-    },
-    input: {
-        borderBottomWidth: 1,
-        height: 40,
-        marginBottom: 12,
-        fontSize: 16
+        paddingEnd: '5%',
+        paddingBottom: '5%',
 
     },
-    button: {
-        backgroundColor: '#0791AB',
-        width: '100%',
-        borderRadius: 25,
-        paddingVertical: 8,
-        marginTop: 14,
-        justifyContent: 'center',
-        alignItems: 'center'
-
-    },
-    buttonText: {
-        color: '#fff',
-        fontSize: 18,
-        fontWeight: 'bold',
-    },
-    buttonRegister: {
-        marginTop: 14,
-        alignItems: 'center',
-
-    },
-    registerText: {
-        color: '#a1a1a1'
-
-    },
-    erroMessage: {
-        color: 'tomato',
-    }
-
 })

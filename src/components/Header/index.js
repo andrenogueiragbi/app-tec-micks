@@ -7,7 +7,7 @@ import {
     StatusBar,
     TouchableOpacity
 } from 'react-native'
-import { Feather } from '@expo/vector-icons'
+import { FontAwesome } from '@expo/vector-icons'
 
 const statusBarHeight = StatusBar.currentHeight ? StatusBar.currentHeight : 64; //tamanho sa statusBar caso for IOS
 
@@ -17,10 +17,10 @@ export default function Header({name}) {
         <View style={styles.container}>
             <View style={styles.content}>
 
-                <Text style={styles.username}>{name}</Text>
+                <Text style={styles.username}>Bem vindo(a) {name ? name.split(' ')[0] : false }</Text>
 
                 <TouchableOpacity activeOpacity={0.9} style={styles.buttonUser}>
-                    <Feather name="user" size={27} color="#fff" />
+                    <FontAwesome name="user-circle-o" size={27} color="#000" />
                 </TouchableOpacity>
             </View>
         </View>
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     buttonUser:{
         width:44,
         height:44,
-        backgroundColor: 'rgba(255,255,255,0.5)',
+        backgroundColor: '#ecf0f1',
         justifyContent: 'center',
         alignItems:'center',
         borderRadius:44/2

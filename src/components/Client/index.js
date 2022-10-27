@@ -5,8 +5,7 @@ import { AntDesign, MaterialCommunityIcons, Entypo, MaterialIcons, SimpleLineIco
 
 export default function cliente({ saldo, gastos }) {
 
-    const plan = ['PLANO FIBRA ULTRA 400Mbps PINDAI (P)', 'PLANO FIBRA ULTRA 240Mbps CBA (P)', 'CORPORATIVO ATÉ 300Mbps (BJL)']
-
+   
 
 
 
@@ -69,7 +68,7 @@ const styles = StyleSheet.create({
         padding: 5,
         height: 60,
         width: 60,
-        backgroundColor: '##fff',
+        backgroundColor: '#fff',
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 30,

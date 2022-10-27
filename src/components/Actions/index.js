@@ -43,7 +43,6 @@ const styles = StyleSheet.create({
     container:{
         maxHeight:100,
         marginBottom:14,
-        marginTop:18,
         paddingEnd:14,
         paddingStart:14,
         backgroundColor: '#0791AB',
