@@ -6,6 +6,10 @@ import NetInfo from "@react-native-community/netinfo";
 
 export default function Actions() {
     const [modalVisible, setModalVisible] = useState(false);
+    NetInfo.fetch().then(state => {
+        console.log("Tipo de conexão", state.type);
+        console.log("Está conectado?", state.isConnected);
+      });
 
 
 
@@ -29,7 +33,7 @@ export default function Actions() {
 
 
             <TouchableOpacity style={styles.actionButton}
-                onPress={getIpAddress}
+              
 
             >
                 <View style={styles.areaButton}>
