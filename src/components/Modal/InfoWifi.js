@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, Modal } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Modal, ScrollView } from 'react-native';
 import NetInfo from "@react-native-community/netinfo";
 import DataClient from '../Client/DataClient'
 
@@ -21,18 +21,27 @@ export default function InfoWifi({ modalVisible, setModalVisible }) {
     const [type, setType] = useState(null)
 
     const [updateData, setUpdateData] = useState(modalVisible)
-    
-    if(updateData){
+
+
+
+
+    if (updateData) {
+
         console.log('entrei aqui', updateData)
+      
+
 
         setInterval(() => {
+   
+
+
             NetInfo.refresh().then(state => {
                 setStrength(state.details.strength)
                 setFrequency(state.details.frequency)
                 setIpAddress(state.details.ipAddress)
                 setSubnet(state.details.subnet)
-                setRxLinkSpeed(state.details.rxLinkSpeed)
-                setTxLinkSpeed(state.details.txLinkSpeed)
+                //setRxLinkSpeed(state.details.rxLinkSpeed)
+                //setTxLinkSpeed(state.details.txLinkSpeed)
                 setLinkSpeed(state.details.linkSpeed)
                 //setIsConnected(state.details.isConnected)
                 setIsInternetReachable(state.isInternetReachable)
@@ -60,64 +69,56 @@ export default function InfoWifi({ modalVisible, setModalVisible }) {
 
     return (
         <View >
+
             <Modal
                 animationType="slide"
                 transparent={true}
                 visible={modalVisible}
             >
-                <View >
+                <ScrollView >
                     <View style={styles.modalView}>
                         <Text style={styles.modalText}>Informação do Wifi Conectado</Text>
 
                         <View style={styles.containerWifi}>
-                            <Text>Tipo Conexão: </Text>
-                            <Text>{type ? type : 'N/A'}</Text>
+                            <Text style={styles.WifiTitle}>Tipo Conexão: </Text>
+                            <Text style={styles.WifiData}>{type ? type : 'N/A'}</Text>
                         </View>
 
                         <View style={styles.containerWifi}>
-                            <Text>Status Navegação: </Text>
-                            <Text>{isInternetReachable ? `Com internet` : 'Sem internet'}</Text>
+                            <Text style={styles.WifiTitle}>Navegação: </Text>
+                            <Text style={styles.WifiData} >{isInternetReachable ? `Com internet` : 'Sem internet'}</Text>
+
+                        </View>
+
+
+                        <View style={styles.containerWifi}>
+                            <Text style={styles.WifiTitle}>Qualidade Wifi: </Text>
+                            <Text style={strength && strength > 50 ? (strength && strength > 75 && !strength < 75 ? [styles.signalWifiGood, styles.WifiData] : [styles.signalWifiRegula, styles.WifiData]) : [styles.signalWifiBad, styles.WifiData]}>{strength ? (strength == 99? "100%":`${strength}%`) : 'N/A'}</Text>
                         </View>
 
                         <View style={styles.containerWifi}>
-                            <Text>Qualidade Wifi: </Text>
-                            <Text style={strength && strength > 50 ? (strength && strength >  75 && !strength <75 ? styles.signalWifiGood: styles.signalWifiRegula ) :styles.signalWifiBad}>{ strength? `${strength}%` : 'N/A'}</Text>
+                            <Text style={styles.WifiTitle}>Velocidade do Enlace: </Text>
+                            <Text style={styles.WifiData}>{linkSpeed ? `${linkSpeed} Mbps` : 'N/A'}</Text>
                         </View>
 
                         <View style={styles.containerWifi}>
-                            <Text>Velocidade do Enlace: </Text>
-                            <Text>{ linkSpeed? `${linkSpeed} Mbps` : 'N/A'}</Text>
+                            <Text style={styles.WifiTitle}>Canal: </Text>
+                            <Text style={styles.WifiData}>{frequency ? frequency : 'N/A'}</Text>
                         </View>
 
                         <View style={styles.containerWifi}>
-                            <Text>Download: </Text>
-                            <Text>{ rxLinkSpeed? `${rxLinkSpeed} Mbps` : 'N/A'}</Text>
+                            <Text style={styles.WifiTitle}>Frequencia: </Text>
+                            <Text style={styles.WifiData}>{frequency ? (frequency < 3000 ? '2.4Ghz' : '5Ghz') : 'N/A'}</Text>
                         </View>
 
                         <View style={styles.containerWifi}>
-                            <Text>Upload: </Text>
-                            <Text>{ txLinkSpeed? `${txLinkSpeed} Mbps` : 'N/A'}</Text>
-                        </View>
-
-
-                         <View style={styles.containerWifi}>
-                            <Text>Canal: </Text>
-                            <Text>{frequency ? frequency : 'N/A'}</Text>
+                            <Text style={styles.WifiTitle} >IP: </Text>
+                            <Text style={styles.WifiData}>{ipAddress ? ipAddress : 'N/A'}</Text>
                         </View>
 
                         <View style={styles.containerWifi}>
-                            <Text>Frequencia: </Text>
-                            <Text>{frequency ? `${String(frequency).substring(0, 1)}Ghz` : 'N/A'}</Text>
-                        </View>
-
-                        <View style={styles.containerWifi}>
-                            <Text>IP: </Text>
-                            <Text>{ipAddress ? ipAddress : 'N/A'}</Text>
-                        </View>
-
-                        <View style={styles.containerWifi}>
-                            <Text>Mascara: </Text>
-                            <Text>{subnet ? subnet : 'N/A'}</Text>
+                            <Text style={styles.WifiTitle} >Mascara: </Text>
+                            <Text style={styles.WifiData}>{subnet ? subnet : 'N/A'}</Text>
                         </View>
 
 
@@ -132,7 +133,7 @@ export default function InfoWifi({ modalVisible, setModalVisible }) {
                             <Text style={styles.textStyle}>Fechar</Text>
                         </TouchableOpacity>
                     </View>
-                </View>
+                </ScrollView>
             </Modal>
 
         </View>
@@ -181,7 +182,6 @@ const styles = StyleSheet.create({
         backgroundColor: "white",
         borderRadius: 20,
         padding: 35,
-        alignItems: "center",
         shadowColor: "#000",
         shadowOffset: {
             width: 0,
@@ -219,18 +219,37 @@ const styles = StyleSheet.create({
         textAlign: "center"
     },
     containerWifi: {
-        flexDirection: "row",
-        padding: 5
+        justifyContent: 'flex-end',
+
+        borderBottomWidth: 1,
+
     },
-    signalWifiGood:{
+
+    signalWifiGood: {
         color: 'green',
     },
-    signalWifiRegula:{
+    signalWifiRegula: {
         color: 'yellow',
     },
-    signalWifiBad:{
+    signalWifiBad: {
         color: 'red',
+    },
+    WifiTitle: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        paddingStart: 5,
+        paddingEnd: 5,
+        paddingTop: 5
+
+    },
+    WifiData: {
+        fontSize: 18,
+        paddingStart: 10,
+        paddingEnd: 5,
+
+
     }
+
 
 
 

@@ -1,77 +1,54 @@
-import React from 'react';
-import { StyleSheet, Text, SafeAreaView, ScrollView, StatusBar, View, TextInput, TouchableOpacity } from 'react-native';
+import React, { useState, Permissions, Platform } from 'react';
+import { StyleSheet, Text, SafeAreaView, ScrollView, StatusBar, View, TextInput, TouchableOpacity, Button } from 'react-native';
+import NetInfo from "@react-native-community/netinfo";
+import WifiManager from "react-native-wifi-reborn";
 
-import * as Animatable from 'react-native-animatable'
 
-const App = () => {
+export default props => {
+
+
+
+
+
+
+    let n = 0
+
+
+
+
+
     return (
 
         <SafeAreaView style={Styles.container}>
 
-            <View>
-                <Animatable.View animation='fadeInUp' delay={400} style={Styles.containerHeader}>
-                    <Text style={Styles.message}>Cadastro</Text>
-                </Animatable.View>
+
+            <Text style={Styles.title}>TESTE</Text>
+            <View style={Styles.content} >
+                <Text style={Styles.message}>Nome Wifi:</Text>
+                <Text style={Styles.messageResult}>{n}</Text>
+            </View>
+
+            <View style={Styles.content} >
+                <Text style={Styles.message}>Sinal:</Text>
+                <Text style={Styles.messageResult}>????</Text>
             </View>
 
 
-            <ScrollView style={Styles.containerForm} >
+            <Button
+                title='START'
+                onPress={()=>{
+                    console.log('....')
 
-                <Animatable.View animation='fadeInUp' >
-
-
-
-
-                    <Text style={Styles.title}>Seu Nome</Text>
-                    <TextInput
-                        placeholder="Digite um nome..."
-                        style={Styles.input}
-                    />
-
-                    <Text style={Styles.title}>Seu Email</Text>
-                    <TextInput
-                        placeholder="Digite um email..."
-                        style={Styles.input}
-                    />
-
-                    <Text style={Styles.title}>Seu Senha</Text>
-                    <TextInput
-                        placeholder="Digite uma Senha..."
-                        style={Styles.input}
-                        secureTextEntry={true}
-                    />
-
-                    <Text style={Styles.title}>Confirma sua Senha</Text>
-                    <TextInput
-                        placeholder="Repita a Senha..."
-                        style={Styles.input}
-                        secureTextEntry={true}
-                    />
-
-
-
-                    <Animatable.View animation='fadeInUp' delay={1000}>
-                        <TouchableOpacity style={Styles.button}>
-                            <Text style={Styles.buttonText}>Cadastrar</Text>
-                        </TouchableOpacity>
-                    </Animatable.View>
-
-                    <Animatable.View style={Styles.infoContainer} animation='fadeInUp' delay={1000}>
-
-                        <Text style={Styles.infoText}>*Solicite seu supervisor a liberação após o cadastro!</Text>
-
-                    </Animatable.View>
-
-                </Animatable.View>
-
-            </ScrollView>
-
-
-
+                }}
+            />
 
         </SafeAreaView>
-    );
-};
+    )
+
+
+}
+
+
 
 
 const Styles = StyleSheet.create({
@@ -86,10 +63,23 @@ const Styles = StyleSheet.create({
         paddingStart: '5%'
 
     },
+    content: {
+        flexDirection: 'row'
+    },
     message: {
         fontSize: 28,
         fontWeight: 'bold',
-        color: '#fff'
+        color: 'black',
+        paddingTop: 10
+
+    },
+    messageResult: {
+        fontSize: 28,
+        fontWeight: 'bold',
+        color: 'red',
+        marginStart: 10,
+        paddingTop: 10
+
 
     },
     containerForm: {
@@ -103,8 +93,11 @@ const Styles = StyleSheet.create({
 
     },
     title: {
-        fontSize: 20,
-        marginTop: 28
+        fontSize: 28,
+        fontWeight: 'bold',
+        color: '#fff',
+        paddingTop: 10
+
     },
     input: {
         borderBottomWidth: 1,
@@ -113,8 +106,8 @@ const Styles = StyleSheet.create({
         fontSize: 16
     },
     button: {
-        backgroundColor: '#0791AB',
-        width: '100%',
+        backgroundColor: '#000',
+        width: '50%',
         borderRadius: 25,
         paddingVertical: 8,
         marginTop: 14,
@@ -143,5 +136,3 @@ const Styles = StyleSheet.create({
     }
 
 })
-
-export default App;

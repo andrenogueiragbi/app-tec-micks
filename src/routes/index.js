@@ -24,17 +24,17 @@ export default props => {
 
 
         }}>
-            <Stack.Screen
-                name="Home"
-                component={Home}
-                options={{ headerShown: false }}
-
-            />
 
             <Stack.Screen
                 name="Login" //nome da rota
                 component={Login} //passando component
                 options={{ headerShown: false }} //tira divisão no topo
+            />
+            <Stack.Screen
+                name="Home"
+                component={Home}
+                options={{ headerShown: false }}
+
             />
 
             <Stack.Screen
@@ -57,16 +57,10 @@ export default props => {
             />
 
             <Stack.Screen
-                name="Test"
-                component={Test}
+                name="Test" //nome da rota
+                component={Test} //passando component
                 options={{ headerShown: false }} //tira divisão no topo
             />
-
-
-
-
-
-
 
 
         </Stack.Navigator>

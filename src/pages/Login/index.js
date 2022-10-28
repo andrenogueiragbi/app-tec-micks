@@ -34,18 +34,22 @@ export default props => {
             setErroUser('*Campo requerido*')
             setErroPassword(null)
             Vibration.vibrate()
+            return
         } else if (!password) {
             setErroPassword('*Campo requerido*')
             setErroUser(null)
             Vibration.vibrate()
+            return
         } else if (!user.includes('@') || !user.split('@')[0] || !user.split('@')[1]) {
             setErroUser('*Email invalido')
             setErroPassword(null)
             Vibration.vibrate()
+            return
         } else if (password.length < 8) {
             setErroPassword('*Senha invalida')
             setErroUser(null)
             Vibration.vibrate()
+            return
         } else {
             const result = await API.login(user, password)
             setErroPassword(null)
@@ -53,9 +57,11 @@ export default props => {
 
             console.log(user, password)
             console.log(">>>", result.ok)
+
             if (result.ok) {
                 setUser('')
                 setPassword('')
+                await StorePersistent.storeData('@tokenApi',result.user.token)
                 navigation.navigate('Home')
 
             } else {
