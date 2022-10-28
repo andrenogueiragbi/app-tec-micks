@@ -20,7 +20,7 @@ import StorePersistent from "../../api/StorePersistent";
 
 export default props => {
     const navigation = useNavigation();
-    const [user, setUser] = useState('andrepereiragbi@gmail.com.br')
+    const [user, setUser] = useState('andrepereiragbi@gmail.com')
     const [password, setPassword] = useState('123456789')
     const [erroUser, setErroUser] = useState(null)
     const [erroPassword, setErroPassword] = useState(null)
