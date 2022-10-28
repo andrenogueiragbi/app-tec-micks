@@ -2,15 +2,11 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, Pressable, Modal, Alert } from 'react-native';
 import { AntDesign, MaterialCommunityIcons, Entypo, FontAwesome } from '@expo/vector-icons'
 import InfoWifi from '../../components/Modal/InfoWifi';
-import NetInfo from "@react-native-community/netinfo";
+
+
 
 export default function Actions() {
     const [modalVisible, setModalVisible] = useState(false);
-    NetInfo.fetch().then(state => {
-        console.log("Tipo de conexão", state.type);
-        console.log("Está conectado?", state.isConnected);
-      });
-
 
 
     return (
@@ -33,7 +29,7 @@ export default function Actions() {
 
 
             <TouchableOpacity style={styles.actionButton}
-              
+
 
             >
                 <View style={styles.areaButton}>
@@ -67,11 +63,12 @@ export default function Actions() {
             {
                 ///////TESTE///////
             }
-            <TouchableOpacity style={styles.actionButton} >
+            <TouchableOpacity style={styles.actionButton}>
+
                 <View style={styles.areaButton}>
                     <AntDesign name="infocirlceo" size={26} color="#000" />
                 </View>
-                <Text style={styles.labelButton}>Test</Text>
+                <Text style={styles.labelButton}>TESTE</Text>
             </TouchableOpacity>
 
 

@@ -27,6 +27,8 @@ import DataClient from '../../components/Client/DataClient';
 
 export default props => {
 
+    
+
     return (
         <SafeAreaView style={Styles.container}>
             <Header name="André Nogueira" />

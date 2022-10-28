@@ -24,6 +24,12 @@ export default props => {
 
 
         }}>
+            <Stack.Screen
+                name="Home"
+                component={Home}
+                options={{ headerShown: false }}
+
+            />
 
             <Stack.Screen
                 name="Login" //nome da rota
@@ -56,12 +62,7 @@ export default props => {
                 options={{ headerShown: false }} //tira divisão no topo
             />
 
-            <Stack.Screen
-                name="Home"
-                component={Home}
-                options={{ headerShown: false }}
 
-            />
 
 
 
