@@ -13,16 +13,25 @@ const Stack = createNativeStackNavigator()
 
 export default props => {
 
-    const [isWelcome, setWelcome] = useState(null)
-    const [isLogin, setLogin] = useState(null)
+    const [haveWelcome, setWelcome] = useState(null)
+    const [haveToken, setToken] = useState(null)
 
 
 
     useEffect(() => {
         const searchData = async () => {
+            try {
+                setWelcome(await StorePersistent.getData('@welcome'))
+                setToken(await StorePersistent.getData('@token'))
 
-            setWelcome(await StorePersistent.getData('@MakeWelcome'))
-            setLogin(await StorePersistent.getData('@token'))
+
+            } catch (e) {
+                alert(e)
+
+            }
+
+
+            return
 
         }
 
@@ -35,24 +44,27 @@ export default props => {
 
 
     return (
+
         <Stack.Navigator>
 
             {
 
-                isWelcome && isLogin ?
+                haveWelcome && haveToken ?
                     (
                         <>
-                            <Stack.Screen
-                                name="Home"
-                                component={Home}
-                                options={{ headerShown: false }} //tira divisão no topo
-                            />
 
                             <Stack.Screen
                                 name="Login"
                                 component={Login}
                                 options={{ headerShown: false }} //tira divisão no topo
                             />
+                            <Stack.Screen
+                                name="Home"
+                                animationTypeForReplace='pop'
+                                component={Home}
+                                options={{ headerShown: false }} //tira divisão no topo
+                            />
+
 
 
                         </>

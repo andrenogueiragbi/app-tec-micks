@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import {
     Text,
     View,
@@ -25,13 +25,14 @@ import DataClient from '../../components/Client/DataClient';
 
 
 
-export default props => {
+export default ({navition,route}) => {
+
 
     
 
     return (
         <SafeAreaView style={Styles.container}>
-            <Header name="André Nogueira" />
+            <Header name='Nome user' />
             <Search />
             <Actions />
             <ScrollView style={Styles.containerForm} >

@@ -1494,6 +1494,11 @@
   dependencies:
     deep-assign "^3.0.0"
 
+"@react-native-community/checkbox@^0.5.12":
+  version "0.5.12"
+  resolved "https://registry.yarnpkg.com/@react-native-community/checkbox/-/checkbox-0.5.12.tgz#1f55a38bbcd5f10ca853db0c6a9f1c4beccc37af"
+  integrity sha512-Dd3eiAW7AkpRgndwKGdgQ6nNgEmZlVD8+KAOBqwjuZQ/M67BThXJ9Ni+ydpPjNm4e28KXmIILfkvhcDt0ZoFTQ==
+
 "@react-native-community/cli-clean@^8.0.4":
   version "8.0.4"
   resolved "https://registry.npmjs.org/@react-native-community/cli-clean/-/cli-clean-8.0.4.tgz"
@@ -2977,6 +2982,11 @@ expo-asset@~8.6.1:
     md5-file "^3.2.3"
     path-browserify "^1.0.0"
     url-parse "^1.5.9"
+
+expo-checkbox@~2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/expo-checkbox/-/expo-checkbox-2.2.0.tgz#3941715ce4c13858b43719c64a7287484e6dc614"
+  integrity sha512-vuLVnQS1UqzjKod/obfAC3XmozEDw1N338xKel1BqB/AclgpQVxCVhyPJRNsT3kScwrjNb4UXn3H0qJneTX/fg==
 
 expo-constants@~13.2.2, expo-constants@~13.2.4:
   version "13.2.4"
@@ -5261,7 +5271,7 @@ prompts@^2.3.2, prompts@^2.4.0:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@^15.7.2:
+prop-types@^15.5.7, prop-types@^15.7.2:
   version "15.8.1"
   resolved "https://registry.npmjs.org/prop-types/-/prop-types-15.8.1.tgz"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -5372,6 +5382,13 @@ react-native-animatable@^1.3.3:
   integrity sha512-2ckIxZQAsvWn25Ho+DK3d1mXIgj7tITkrS4pYDvx96WyOttSvzzFeQnM2od0+FUMzILbdHDsDEqZvnz1DYNQ1w==
   dependencies:
     prop-types "^15.7.2"
+
+react-native-check-box@^2.1.7:
+  version "2.1.7"
+  resolved "https://registry.yarnpkg.com/react-native-check-box/-/react-native-check-box-2.1.7.tgz#f349d3505a13c15d19949ec4cec40c7adc4f3626"
+  integrity sha512-dPVOoz4jKs2je2HSHp7+XJXNyZFq8Kij7IHutigrQKzB550Dko6ZAQu/1mG1FzdUMFxxkZ2nX59KmbR0Co0T8Q==
+  dependencies:
+    prop-types "^15.5.7"
 
 react-native-codegen@^0.69.2:
   version "0.69.2"

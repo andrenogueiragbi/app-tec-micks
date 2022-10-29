@@ -13,16 +13,26 @@ import { FontAwesome } from '@expo/vector-icons'
 const statusBarHeight = StatusBar.currentHeight ? StatusBar.currentHeight : 64; //tamanho sa statusBar caso for IOS
 
 
-export default function Header({ name }) {
+export default function Header({ route }) {
+
+    console.log(route)
+    let name = false
+
     return (
         <View style={styles.container}>
             <View style={styles.content}>
 
-                <Text style={styles.username}>Bem vindo(a) {name ? name.split(' ')[0] : false}</Text>
+                <Text style={styles.username}>Bem vindo(a) {name ? name.split(' ')[0].toUpperCase() : false}</Text>
 
                 <TouchableOpacity
                     activeOpacity={0.9} style={styles.buttonUser}
-                    onPress={ async () => await StorePersistent.removeData('@token')}
+                    onPress={ async () => {await StorePersistent.removeData('@token') }}
+                    >
+                    <FontAwesome name="user-circle-o" size={27} color="#000" />
+                </TouchableOpacity>
+                <TouchableOpacity
+                    activeOpacity={0.9} style={styles.buttonUser}
+                    onPress={ async () => {await StorePersistent.removeData('@welcome') }}
                     >
                     <FontAwesome name="user-circle-o" size={27} color="#000" />
                 </TouchableOpacity>

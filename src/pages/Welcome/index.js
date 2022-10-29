@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import StorePersistent from "../../api/StorePersistent";
 import {
     Text,
@@ -6,8 +6,6 @@ import {
     StyleSheet,
     Image,
     TouchableOpacity,
-
-
 } from 'react-native'
 
 import * as Animatable from 'react-native-animatable'
@@ -19,7 +17,7 @@ export default props => {
     const navigation = useNavigation();
 
     const makeWelcome = async () => {
-        await StorePersistent.storeData('@MakeWelcome', 'yes')
+        await StorePersistent.storeData('@welcome', 'true')
         navigation.navigate('Login')
     }
 
