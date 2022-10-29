@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import {
     Text,
     View,
@@ -8,22 +8,46 @@ import {
     SafeAreaView,
     ScrollView,
     Vibration,
-    BackHandler,
     Alert
 } from "react-native"
 import * as Animatable from 'react-native-animatable'
 import { useNavigation } from '@react-navigation/native'
 import API from '../../api'
+import apiMck from "../../Services/api";
 import StorePersistent from "../../api/StorePersistent";
 
 
 
 export default props => {
     const navigation = useNavigation();
-    const [user, setUser] = useState('andrepereiragbi@gmail.com')
-    const [password, setPassword] = useState('123456789')
+    const [user, setUser] = useState('teste@teste')
+    const [password, setPassword] = useState('12345678')
     const [erroUser, setErroUser] = useState(null)
     const [erroPassword, setErroPassword] = useState(null)
+
+    const [token, setToken] = useState()
+    const [data, setData] = useState()
+
+    useEffect(() => {
+        // declare the async data fetching function
+        const fetchData = async () => {
+          // get the data from the api
+          const data = await apiMck.get('localidades/estados/')
+          .then(response => setData(response.data));
+
+        }
+
+        fetchData()
+      
+  
+        
+
+      
+
+      }, [])
+
+
+
 
 
     const VerifyLogin = async () => {
@@ -55,13 +79,10 @@ export default props => {
             setErroPassword(null)
             setErroUser(null)
 
-            console.log(user, password)
-            console.log(">>>", result.ok)
 
             if (result.ok) {
-                setUser('')
-                setPassword('')
-                await StorePersistent.storeData('@tokenApi',result.user.token)
+                
+                await StorePersistent.storeData('@token', result.result.user.token)
                 navigation.navigate('Home')
 
             } else {
@@ -82,6 +103,8 @@ export default props => {
 
     return (
         <SafeAreaView style={Styles.container}>
+           
+            
 
 
 

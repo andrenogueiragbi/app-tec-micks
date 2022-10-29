@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import StorePersistent from "../../api/StorePersistent";
 import {
     Text,
@@ -6,7 +6,7 @@ import {
     StyleSheet,
     Image,
     TouchableOpacity,
-    
+
 
 } from 'react-native'
 
@@ -15,12 +15,12 @@ import { useNavigation } from '@react-navigation/native'
 
 export default props => {
 
+
     const navigation = useNavigation();
 
-    const makeWelcome = async() =>{
-        StorePersistent.storeData('@toMakeWelcome','true')
+    const makeWelcome = async () => {
+        await StorePersistent.storeData('@MakeWelcome', 'yes')
         navigation.navigate('Login')
-
     }
 
 
@@ -98,7 +98,7 @@ const Styles = StyleSheet.create({
         fontWeight: 'bold',
 
     },
-    container2:{
+    container2: {
         alignItems: "center",
         justifyContent: "center",
     }

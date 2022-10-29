@@ -17,10 +17,8 @@ export const storeData = async (key, value) => {
 export const getData = async (key) => {
   try {
     const value = await AsyncStorage.getItem(key)
-    return {
-        success: true,
-        value
-    }
+    return value
+    
   } catch(error) {
     return {
         success: false,

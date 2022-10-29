@@ -1,5 +1,5 @@
-import React from "react";
-import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import React, { useEffect, useState } from "react";
+import { createNativeStackNavigator, } from '@react-navigation/native-stack'
 import Login from "../pages/Login"
 import Welcome from "../pages/Welcome"
 import Client from "../pages/Client"
@@ -12,55 +12,89 @@ const Stack = createNativeStackNavigator()
 
 
 export default props => {
-    var PageStart = ''
-    let makeWelcome = false;
+
+    const [isWelcome, setWelcome] = useState(null)
+    const [isLogin, setLogin] = useState(null)
+
+
+
+    useEffect(() => {
+        const searchData = async () => {
+
+            setWelcome(await StorePersistent.getData('@MakeWelcome'))
+            setLogin(await StorePersistent.getData('@token'))
+
+        }
+
+        searchData()
+
+    }, [])
+
+
 
 
 
     return (
-        <Stack.Navigator initialRouteName={async () => {
-            let toMakeWelcome = await StorePersistent.getData("@toMakeWelcome")
-            return 'Welcome'
+        <Stack.Navigator>
+
+            {
+
+                isWelcome && isLogin ?
+                    (
+                        <>
+                            <Stack.Screen
+                                name="Home"
+                                component={Home}
+                                options={{ headerShown: false }} //tira divisão no topo
+                            />
+
+                            <Stack.Screen
+                                name="Login"
+                                component={Login}
+                                options={{ headerShown: false }} //tira divisão no topo
+                            />
 
 
-        }}>
+                        </>
 
-            <Stack.Screen
-                name="Login" //nome da rota
-                component={Login} //passando component
-                options={{ headerShown: false }} //tira divisão no topo
-            />
-            <Stack.Screen
-                name="Home"
-                component={Home}
-                options={{ headerShown: false }}
+                    )
+                    :
+                    (
+                        <>
+                            <Stack.Screen
+                                name="Welcome"
+                                component={Welcome}
+                                options={{ headerShown: false }} //tira divisão no topo
+                            />
 
-            />
+                            <Stack.Screen
+                                name="Login"
+                                component={Login}
+                                options={{ headerShown: false }} //tira divisão no topo
+                            />
 
-            <Stack.Screen
-                initialParams={Welcome}
-                name="Welcome"
-                component={Welcome}
-                options={{ headerShown: false }} //tira divisão no topo
-            />
+                            <Stack.Screen
+                                name="Register"
+                                component={Register}
+                                options={{ headerShown: false }} //tira divisão no topo
+                            />
 
-            <Stack.Screen
-                name="Client"
-                component={Client}
-                options={{ headerShown: false }} //tira divisão no topo
-            />
+                            <Stack.Screen
+                                name="Home"
+                                component={Home}
+                                options={{ headerShown: false }} //tira divisão no topo
+                            />
 
-            <Stack.Screen
-                name="Register"
-                component={Register}
-                options={{ headerShown: false }} //tira divisão no topo
-            />
 
-            <Stack.Screen
-                name="Test" //nome da rota
-                component={Test} //passando component
-                options={{ headerShown: false }} //tira divisão no topo
-            />
+
+
+                        </>
+
+                    )
+            }
+
+
+
 
 
         </Stack.Navigator>
