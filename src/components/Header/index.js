@@ -26,14 +26,16 @@ export default function Header({ route }) {
 
                 <TouchableOpacity
                     activeOpacity={0.9} style={styles.buttonUser}
-                    onPress={ async () => {await StorePersistent.removeData('@token') }}
-                    >
+                    onPress={async () => { await StorePersistent.removeData('@token') }}
+                >
+                    <Text>T</Text>
                     <FontAwesome name="user-circle-o" size={27} color="#000" />
                 </TouchableOpacity>
                 <TouchableOpacity
                     activeOpacity={0.9} style={styles.buttonUser}
-                    onPress={ async () => {await StorePersistent.removeData('@welcome') }}
-                    >
+                    onPress={async () => { await StorePersistent.removeData('@welcome') }}
+                >
+                    <Text>W</Text>
                     <FontAwesome name="user-circle-o" size={27} color="#000" />
                 </TouchableOpacity>
             </View>

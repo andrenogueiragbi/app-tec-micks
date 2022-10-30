@@ -1,23 +1,42 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import StorePersistent from "../../api/StorePersistent";
 import {
     Text,
     View,
     StyleSheet,
-    Image,
+    KeyboardAvoidingView,
     TouchableOpacity,
 } from 'react-native'
 
 import * as Animatable from 'react-native-animatable'
-import { useNavigation } from '@react-navigation/native'
+import { useNavigation,StackActions,NavigationActions } from '@react-navigation/native'
 
 export default props => {
 
-
     const navigation = useNavigation();
 
+    const [isWelcome, setIsWelcome] = useState(null)
+
+
+    useEffect(() => {
+        async function haveWelcome() {
+            await StorePersistent.getData('@welcome')
+                .then(response => response ? navigation.replace('Login')
+                 : false)
+                .catch(err => alert(err))
+
+
+        }
+
+        haveWelcome()
+
+    }, [])
+
+
     const makeWelcome = async () => {
+
         await StorePersistent.storeData('@welcome', 'true')
+        navigation.replace('Login')
         navigation.navigate('Login')
     }
 

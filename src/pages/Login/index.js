@@ -15,47 +15,27 @@ import { useNavigation } from '@react-navigation/native'
 import API from '../../api'
 import apiMck from "../../Services/api";
 import StorePersistent from "../../api/StorePersistent";
-import Checkbox from 'expo-checkbox';
+
 
 
 export default props => {
     const navigation = useNavigation();
-    const [user, setUser] = useState()
-    const [password, setPassword] = useState()
+    const [user, setUser] = useState('teste@teste')
+    const [password, setPassword] = useState('12345678')
     const [erroUser, setErroUser] = useState(null)
     const [erroPassword, setErroPassword] = useState(null)
-    const [isChecked, setChecked] = useState(false);
 
+ 
     useEffect(() => {
-        // declare the async data fetching function
-        const fetchData = async () => {
-            // get the data from the api
-            await StorePersistent.getData('@user')
-                .then(response => setUser(response))
-      
-
-            await StorePersistent.getData('@password')
-                .then(response => setPassword(response))
+        async function haveLogin() {
+            await StorePersistent.getData('@token')
+                .then(response => response ? navigation.navigate('Home') : false)
+                .catch(err => alert(err))
             
-        }
-
-        fetchData()
-
-    }, [])
-
-
-
-
-    useEffect(() => {
-        // declare the async data fetching function
-        const fetchData = async () => {
-            // get the data from the api
-            const data = await apiMck.get('localidades/estados/')
-                .then(response => response);
 
         }
 
-        fetchData()
+        haveLogin()
 
     }, [])
 
@@ -64,6 +44,7 @@ export default props => {
 
     const VerifyLogin = async () => {
 
+ 
 
         if (!user) {
             setErroUser('*Campo requerido*')
@@ -94,22 +75,7 @@ export default props => {
             if (result.ok) {
 
                 await StorePersistent.storeData('@token', result.result.user.token)
-
-                if(isChecked){
-                    await StorePersistent.removeData('@user')
-                    await StorePersistent.removeData('@password')
-                    await StorePersistent.storeData('@user',user)
-                    await StorePersistent.storeData('@password',password)
-    
-                }else{
-                    await StorePersistent.removeData('@user')
-                    await StorePersistent.removeData('@password')
-    
-                }
-    
-                
-
-                navigation.navigate('Home', { userData: result.result.user })
+                navigation.navigate('Home')
 
             } else {
                 Vibration.vibrate()
@@ -163,7 +129,6 @@ export default props => {
 
                     <Text style={Styles.title}>Senha</Text>
 
-
                     <TextInput
                         placeholder="Digite um senha..."
                         style={Styles.input}
@@ -173,21 +138,6 @@ export default props => {
 
                     />
                     {erroPassword ? <Animatable.Text animation='bounce' style={Styles.erroMessage} >{erroPassword}</Animatable.Text> : false}
-
-
-                    <View style={Styles.section}>
-                    <Checkbox
-            
-                        value={isChecked}
-                        onValueChange={setChecked}
-                        color={isChecked ? '#0791AB' : undefined}
-                    />
-
-                    <Text style={Styles.registerText}>Relembre-me a senha</Text>
-                    </View>
-
-
-
 
                     <Animatable.View animation='fadeInUp' delay={1000}>
                         <TouchableOpacity
@@ -276,24 +226,11 @@ const Styles = StyleSheet.create({
 
     },
     registerText: {
-        color: '#a1a1a1',
-        marginLeft:10,
-        margin:10
+        color: '#a1a1a1'
+
     },
     erroMessage: {
         color: 'tomato',
-    },
-    section: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-        
-    },
-    paragraph: {
-        fontSize: 15,
-    },
-    checkbox: {
-        margin: 8,
-    },
+    }
 
 })

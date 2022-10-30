@@ -10,105 +10,16 @@ import StorePersistent from "../api/StorePersistent";
 
 const Stack = createNativeStackNavigator()
 
-
 export default props => {
-
-    const [haveWelcome, setWelcome] = useState(null)
-    const [haveToken, setToken] = useState(null)
-
-
-
-    useEffect(() => {
-        const searchData = async () => {
-            try {
-                setWelcome(await StorePersistent.getData('@welcome'))
-                setToken(await StorePersistent.getData('@token'))
-
-
-            } catch (e) {
-                alert(e)
-
-            }
-
-
-            return
-
-        }
-
-        searchData()
-
-    }, [])
-
-
-
 
 
     return (
 
         <Stack.Navigator>
-
-            {
-
-                haveWelcome && haveToken ?
-                    (
-                        <>
-
-                            <Stack.Screen
-                                name="Login"
-                                component={Login}
-                                options={{ headerShown: false }} //tira divisão no topo
-                            />
-                            <Stack.Screen
-                                name="Home"
-                                animationTypeForReplace='pop'
-                                component={Home}
-                                options={{ headerShown: false }} //tira divisão no topo
-                            />
-
-
-
-                        </>
-
-                    )
-                    :
-                    (
-                        <>
-                            <Stack.Screen
-                                name="Welcome"
-                                component={Welcome}
-                                options={{ headerShown: false }} //tira divisão no topo
-                            />
-
-                            <Stack.Screen
-                                name="Login"
-                                component={Login}
-                                options={{ headerShown: false }} //tira divisão no topo
-                            />
-
-                            <Stack.Screen
-                                name="Register"
-                                component={Register}
-                                options={{ headerShown: false }} //tira divisão no topo
-                            />
-
-                            <Stack.Screen
-                                name="Home"
-                                component={Home}
-                                options={{ headerShown: false }} //tira divisão no topo
-                            />
-
-
-
-
-                        </>
-
-                    )
-            }
-
-
-
-
-
+            <Stack.Screen name="Welcome" component={Welcome} options={{ headerShown: false }} />
+            <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+            <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+            <Stack.Screen name="Register" component={Register} options={{ headerShown: false }} />
         </Stack.Navigator>
 
     )
